@@ -2,6 +2,7 @@ import path from 'path';
 import fs from 'fs';
 import cypto from 'crypto';
 import dns from 'dns';
+import process from 'process';
 
 
 // const filepath = path.resolve("LEC5")7
@@ -73,14 +74,23 @@ import dns from 'dns';
 // })
 
 //-----------------to know anout domain----------------
-dns.reverse('8.8.8.8',(err,hostnames)=>{
-    if(err){
-        console.log(err);
+// dns.reverse('8.8.8.8',(err,hostnames)=>{
+//     if(err){
+//         console.log(err);
         
-    }else{
-        console.log(hostnames);
+//     }else{
+//         console.log(hostnames);
           
-    }
-})
+//     }
+// })
+ const data = process.argv;  // used to get extra from the command
+console.log(Number(data[2])+Number(data[3]));
+
+ 
+ 
+// console.log(process.version); // to get the current version
+// console.log(process.pid); // to get the pid which is randpm for each process
+// console.log(process.cwd);
+
 
 
