@@ -2,8 +2,10 @@ const express=require("express");
 const router = express.Router();
 const productController=require("../Controller/productController.js")
 
-router.get("/",getProducts)
 
+/////READ
+router.get("/",getProducts)
+router.get('/search',productController,searchProducts)
 router.get("/:id",productController.getProductsbyID)
 
 ////Create 

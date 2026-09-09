@@ -40,10 +40,26 @@ const delelteProducts = (req, res) => {
     products.splice(index, 1);
     res.json({ success: true, result });
 }
+const searchProducts=(req,res)=>{
+    const {name,category,price}=req.query
+    let result,
+    if(name){
+        result = products.filter((product)=>product.name===name) 
+    }
+    if(category){
+        result = products.filter((product)=>product.category===category) 
+    }
+    if(price){
+        result = products.filter((product)=>product.price===price) 
+    }
+    res.json({total:result.length,result})
+
+}
 module.exports = [
     getProducts,
     getProductsByID,
     updateProducts,
     addProducts,
-    delelteProducts
+    delelteProducts,
+    searchProducts
 ]
