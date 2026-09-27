@@ -42,7 +42,7 @@ const delelteProducts = (req, res) => {
 }
 const searchProducts=(req,res)=>{
     const {name,category,price}=req.query
-    let result,
+    let result
     if(name){
         result = products.filter((product)=>product.name===name) 
     }
