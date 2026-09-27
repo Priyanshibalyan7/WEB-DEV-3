@@ -21,14 +21,15 @@ route.get('/', (req, res) => {
 route.get('/:id', (req, res) => {
     try {
 
-        const id = parseInt(req.params.id)
-        const student = students.find(student => student.id === id)
+        const id = Number(req.params.id)
+        const student = students.find((student) => student.id === id)
         if (!student) {
-            return res.status.json({
+            return res.status(404).json({
                 success: false,
                 message: "Student not found.. :("
             })
         }
+        console.log("hello");
         res.status(200).json({
             success: true,
             data: student
@@ -43,15 +44,15 @@ route.get('/:id', (req, res) => {
 })
 route.post('/', (req, res) => {
     try {
-        const { name, email, Gender } = req.body
+        const { name, email, Gender, id } = req.body
 
-        if (!name || !email || !Gender) {
+        if (!name || !email || !Gender || !id) {
             res.status(400).json({
                 success: false,
                 message: " data is incomplete"
             })
         }
-        students.push({ name, email, Gender })
+        students.push({ name, email, Gender, id })
 
         res.status(201).json({
             success: true,
@@ -68,58 +69,61 @@ route.post('/', (req, res) => {
     }
 })
 route.put('/:id', (req, res) => {
+
     try {
-        const { name, Gender, email } = req.body
 
-        if (!name || !Gender || !email) {
-            res.status(400).json({
-                success: false,
-                message: " Gender , Name,E-mail needed"
+        let { studentID } = Number(req.params.id)
+        if (!studentID) {
+            return res.status(404).json({
+                succcess: false,
+                message: "student ID not found for update"
             })
         }
-        let Student = students.find((value) => value.Gender === Gender)
-
-        if (!Student) {
-            res.status(404).json({
-                success: false,
-                message: "Student doesn't exists"
+        let student =  students.findById(studentID)
+        if (!student) {
+            return res.status(404).json({
+                message: "data not found",
+                success: false
             })
-        }
 
-        Student.name = name;
+        }
+        let { name, email, Gender, id } = req.body
+        const updateStudent = students.findByIdAndUpdate(studentID, { name, email, Gender, id }, { new: true })
         res.status(200).json({
-            success: true,
-            message: "Student updated",
-            data: students
+            succcess: true,
+            message: "data updated successfully",
+            data: updateStudent
         })
+
 
     } catch (error) {
-        res.status(404).json({
-            success: false,
-            message: "Error:", error
+        res.status(500).json({
+            message: 'failed to updated data internal server error',
+            success: false
         })
+
     }
 })
 route.delete('/:id', (req, res) => {
     try {
         const id = parseInt(req.params.id)
         const studentIndex = students.findIndex(student => student.id === id)
-        if (studentIndex=== -1) {
+        if (studentIndex === -1) {
             res.status(404).json({
                 success: false,
                 message: "Student not Found .... :("
             })
         }
-        students.splice(studentIndex, 1);
+        const deleteStudent = students.splice(studentIndex, 1);
         res.status(200).json({
             success: true,
             message: "Student deleted successfully",
-            data: students
+            data: deleteStudent[0]
         })
     } catch (error) {
         res.status(500).json({
-            success:"False",
-            message:"Error:",error
+            success: "False",
+            message: "Error:", error
         })
     }
 }

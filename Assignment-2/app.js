@@ -7,17 +7,14 @@ const app = express()
 app.use(express.json()) // to parse the data from client to server
 app.use(logger)
 
-//---Hone page----
+app.use("/students",route) // Use the routes and build the connection
+//---Home page----
 app.get('/',(req,res)=>{
     res.status(200).json({
         success:true,
         Message:"Student Management System REST APIs"
     })
 })
-
-
-app.use("/students",route) // Use the routes and build the connection
-
 
 app.use((req,res)=>{
     res.status(404).json({
