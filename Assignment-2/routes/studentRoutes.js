@@ -69,39 +69,41 @@ route.post('/', (req, res) => {
     }
 })
 route.put('/:id', (req, res) => {
-
     try {
+        const studentID = Number(req.params.id)
 
-        let { studentID } = Number(req.params.id)
-        if (!studentID) {
+        const studentIndex = students.findIndex(
+            student => student.id === studentID
+        )
+
+        if (studentIndex === -1) {
             return res.status(404).json({
-                succcess: false,
-                message: "student ID not found for update"
+                success: false,
+                message: "Student ID not found for update"
             })
         }
-        let student =  students.findById(studentID)
-        if (!student) {
-            return res.status(404).json({
-                message: "data not found",
-                success: false
-            })
 
+        const { name, email, Gender } = req.body
+
+        students[studentIndex] = {
+            ...students[studentIndex],
+            name,
+            email,
+            Gender
         }
-        let { name, email, Gender, id } = req.body
-        const updateStudent = students.findByIdAndUpdate(studentID, { name, email, Gender, id }, { new: true })
+
         res.status(200).json({
-            succcess: true,
-            message: "data updated successfully",
-            data: updateStudent
+            success: true,
+            message: "Data updated successfully",
+            data: students[studentIndex]
         })
-
 
     } catch (error) {
         res.status(500).json({
-            message: 'failed to updated data internal server error',
-            success: false
+            success: false,
+            message: "Failed to update data",
+            error: error.message
         })
-
     }
 })
 route.delete('/:id', (req, res) => {
