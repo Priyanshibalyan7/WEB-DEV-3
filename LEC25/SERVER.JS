@@ -1,9 +1,11 @@
-const express= require('express');
-const app= express();
-const mongoose= require('mongoose');
-const PORT= 3000;
+const express=require('express');
+const connectDB = require('./config/db')
+const studentRoutes = require('./routes/students.routes') 
+const app=express();
+const  PORT=3000;
 
-mongoose.connect('mongodb://localhost:27017/collegeDB',)
-.then(()=> console.log('MongoDB Connected'))
-.catch(err=> console.log(err));
-app.listen(PORT, ()=> console.log(`Server running on port ${PORT}`));
+app.use(express.json());
+app.use('/', studentRoutes)
+connectDB()
+
+app.listen(PORT,()=>{console.log(`Server is running on port ${PORT}`)});
