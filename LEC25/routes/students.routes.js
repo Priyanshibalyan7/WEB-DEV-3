@@ -1,15 +1,13 @@
 const express  =require('express')
-const { getStudents, getStudentById, addStudent, updateStudent, deleteStudent } = require('../controller/students.controller')
-const { updateMany } = require('../model/students.model')
 const router =express.Router()
+const { getStudents, getStudentById, addStudent, updateStudent, deleteStudent } = require('../controller/students.controller')
+router.get('/api/students',getStudents)
+router.get('/api/students/:id',getStudentById)
 
-app.get('/api/students',getStudents)
-app.get('/api/students/:id',getStudentById)
+router.post('/api/students',addStudent)
 
-app.post('/api/students',addStudent)
+router.put('/api/students/:id',updateStudent)
 
-app.put('/api/students/:id',updateStudent)
+router.delete('/api/students/:id', deleteStudent)
 
-app.delete('/api/students/:id', deleteStudent)
-
-module.exports = router ;
+module.exports = router;
