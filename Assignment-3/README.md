@@ -81,14 +81,28 @@ Server runs on: `http://localhost:5000`
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/` | API status check |
-| `POST` | `/api/products` | Create a new product |
-| `GET` | `/api/products` | Get products (filter, sort, search, paginate) |
-| `GET` | `/api/products/:id` | Get single product by ID |
-| `PUT` | `/api/products/:id` | Update product details |
-| `PATCH` | `/api/products/:id/stock` | Adjust stock |
-| `DELETE` | `/api/products/:id` | Delete product by ID |
-| `GET` | `/api/products/low-stock` | Low-stock alert report  |
-| `GET` | `/api/products/summary` | Category-wise aggregation summary |
+| `GET` | `/api/products` | Get products (filter, sort, search, paginate) |--->
+![get]((screenshots/img1.PNG))
 
+| `POST` | `/api/products` | Create a new product | --> 
+![add new](screenshots/img2.PNG)
+
+| `GET` | `/api/products/:id` | Get single product by ID |
+![get]((screenshots/img8.PNG))
+
+
+| `PUT` | `/api/products/:id` | Update product details |
+![put]((screenshots/img7.PNG))
+
+| `PATCH` | `/api/products/:id/stock` | Adjust stock |
+![get by id](screenshots/img6.PNG)
+
+| `DELETE` | `/api/products/:id` | Delete product by ID |
+![get by id](screenshots/img4.PNG)
+
+| `GET` | `/api/products/low-stock` | Low-stock alert report  |
+![get by id](screenshots/img5.PNG)
+
+| `GET` | `/api/products/summary` | Category-wise aggregation summary |
+![get by id](screenshots/img6.PNG)
 ---
